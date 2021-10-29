@@ -26,31 +26,31 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebGames {
    
     @Autowired
-    private ServiciosGame servicios;
+    private ServiciosGame serviciosGames;
     
     @GetMapping("/all")
     public List<Game> getGame(){
-        return servicios.getAll();
+        return serviciosGames.getAll();
     }
     @GetMapping("/{id}")
 	    public Optional<Game> getGame(@PathVariable("id") int idGame) {
-	        return servicios.getGame(idGame);
+	        return serviciosGames.getGame(idGame);
 	    }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Game save(@RequestBody Game game) {
-        return servicios.save(game);
+        return serviciosGames.save(game);
     }
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public Game update(@RequestBody Game game) {
-        return servicios.update(game);
+        return serviciosGames.update(game);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int idGame) {
-        return servicios.deleteGames(idGame);
+        return serviciosGames.deleteGames(idGame);
     }
 
 }

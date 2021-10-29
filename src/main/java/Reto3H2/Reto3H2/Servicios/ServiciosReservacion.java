@@ -18,23 +18,23 @@ import org.springframework.stereotype.Service;
 public class ServiciosReservacion {
     
    @Autowired
-   private RepositorioReservacion metodosCrud;
+   private RepositorioReservacion mCrReservation;
    
    public List<Reservation> getAll(){
-       return metodosCrud.getAll();
+       return mCrReservation.getAll();
    }
    
    public Optional <Reservation> getReservation(int idReservation){
-       return metodosCrud.getReservation(idReservation);
+       return mCrReservation.getReservation(idReservation);
    }
    
    public Reservation save(Reservation reservation){
     if (reservation.getIdReservation()==null){
-        return metodosCrud.save(reservation);
+        return mCrReservation.save(reservation);
     }else{
-        Optional<Reservation> evt =metodosCrud.getReservation(reservation.getIdReservation());
+        Optional<Reservation> evt =mCrReservation.getReservation(reservation.getIdReservation());
         if (evt.isEmpty()){
-            return metodosCrud.save(reservation);
+            return mCrReservation.save(reservation);
         }else {
             return reservation;
         }
@@ -44,7 +44,7 @@ public class ServiciosReservacion {
     public Reservation update(Reservation reservation) {
        
         if(reservation.getIdReservation()!=null){
-            Optional<Reservation> e= metodosCrud.getReservation(reservation.getIdReservation());
+            Optional<Reservation> e= mCrReservation.getReservation(reservation.getIdReservation());
             if(!e.isEmpty()){
 
                 if(reservation.getStartDate()!=null){
@@ -56,7 +56,7 @@ public class ServiciosReservacion {
                 if(reservation.getStatus()!=null){
                     e.get().setStatus(reservation.getStatus());
                 }
-                metodosCrud.save(e.get());
+                mCrReservation.save(e.get());
                 return e.get();
             }else{
                 return reservation;
@@ -69,31 +69,30 @@ public class ServiciosReservacion {
     public boolean deleteReservation(int idReservation) {
         
         Boolean aBoolean = getReservation(idReservation).map(reservation -> {
-            metodosCrud.delete(reservation);
+            mCrReservation.delete(reservation);
             return true;
         }).orElse(false);
         return aBoolean;
     }
     
     public StatusReservas getReservationsStatusReport(){
-        List<Reservation>completed=metodosCrud.getReservationByStatus("completed");
-        List<Reservation>cancelled=metodosCrud.getReservationByStatus("cancelled");
+        List<Reservation>completed=mCrReservation.getReservationByStatus("completed");
+        List<Reservation>cancelled=mCrReservation.getReservationByStatus("cancelled");
     return new StatusReservas(completed.size(), cancelled.size());
     }
     
-    public List<Reservation> getReservationPeriod(String dateA, String dateB){
-        SimpleDateFormat parser=new SimpleDateFormat("yyyy-MM-dd");
-        Date aDate= new Date();
-        Date bDate= new Date();
+    public List<Reservation> getReservationPeriod(String datoA, String datoB){
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaInicio = new Date();
+        Date fechaFin = new Date();
         
        try {
-           aDate = parser.parse(dateA);
-           bDate = parser.parse(dateB);
+           fechaInicio = parser.parse(datoA);
+           fechaFin = parser.parse(datoB);
        }catch(ParseException evt){
            evt.printStackTrace();
-       }
-       if(aDate.before(bDate)){
-           return metodosCrud.getReservationPeriod(aDate, bDate);
+       }if(fechaInicio.before(fechaFin)){
+           return mCrReservation.getReservationPeriod(fechaInicio, fechaFin);
        }else{
            return new ArrayList<>();
        } 
@@ -101,12 +100,8 @@ public class ServiciosReservacion {
     }
     
     public List<ContadorClientes> getTopClients(){
-        return metodosCrud.getTopClients();
+        return mCrReservation.getTopClients();
     }
 
-    
-    
-    
-    
     
 }

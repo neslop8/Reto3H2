@@ -12,23 +12,23 @@ import org.springframework.stereotype.Service;
 public class ServiciosCategoria {
    
    @Autowired
-   private RepositorioCategoria metodosCrud;
+   private RepositorioCategoria mCrCategoria;
    
    public List<Category> getAll(){
-       return metodosCrud.getAll();
+       return mCrCategoria.getAll();
    }
    
    public Optional <Category> getCategory(int idCategory){
-       return metodosCrud.getCategory(idCategory);
+       return mCrCategoria.getCategory(idCategory);
    }
    
    public Category save(Category category){
     if (category.getId()==null){
-        return metodosCrud.save(category);
+        return mCrCategoria.save(category);
     }else{
-        Optional<Category> evt = metodosCrud.getCategory(category.getId());
+        Optional<Category> evt = mCrCategoria.getCategory(category.getId());
         if (evt.isEmpty()){
-            return metodosCrud.save(category);
+            return mCrCategoria.save(category);
         }else {
             return category;
         }
@@ -37,7 +37,7 @@ public class ServiciosCategoria {
 
     public Category update(Category category) {
         if(category.getId()!=null){
-            Optional<Category>evt=metodosCrud.getCategory(category.getId());
+            Optional<Category>evt=mCrCategoria.getCategory(category.getId());
             if(!evt.isEmpty()){
                 if(category.getDescription()!=null){
                     evt.get().setDescription(category.getDescription());
@@ -45,7 +45,7 @@ public class ServiciosCategoria {
                 if(category.getName()!=null){
                     evt.get().setName(category.getName());
                 }
-                return metodosCrud.save(evt.get());
+                return mCrCategoria.save(evt.get());
             }
         }
         return category;
@@ -54,7 +54,7 @@ public class ServiciosCategoria {
     public boolean deletecategoria(int id) {
         
         Boolean d=getCategory(id).map(category -> {
-            metodosCrud.delete(category);
+            mCrCategoria.delete(category);
             return true;
         }).orElse(false);
         return d;

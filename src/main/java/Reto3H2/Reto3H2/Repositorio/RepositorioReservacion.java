@@ -16,33 +16,33 @@ import org.springframework.stereotype.Repository;
 public class RepositorioReservacion {
  
     @Autowired
-    private InterfaceReservacion crud;
+    private InterfaceReservacion crudReservacion;
     
     public List <Reservation> getAll(){
-        return (List<Reservation>) crud.findAll();
+        return (List<Reservation>) crudReservacion.findAll();
     }
     public Optional <Reservation> getReservation(int idReservation){
-        return crud.findById(idReservation);
+        return crudReservacion.findById(idReservation);
     }        
     
     public Reservation save(Reservation reservation){
-        return  crud.save(reservation);
+        return  crudReservacion.save(reservation);
     }
     public void delete(Reservation reservation){
-        crud.delete(reservation);
+        crudReservacion.delete(reservation);
     }
     
     public List<Reservation> getReservationByStatus(String status){
-        return crud.findAllByStatus(status);
+        return crudReservacion.findAllByStatus(status);
     }
     
    public List<Reservation> getReservationPeriod(Date a, Date b){
-       return crud.findAllByStartDateAfterAndStartDateBefore(a, b);
+       return crudReservacion.findAllByStartDateAfterAndStartDateBefore(a, b);
    } 
    
    public List<ContadorClientes> getTopClients(){
        List<ContadorClientes> res= new ArrayList<>();
-       List<Object[]> report = crud.countTotalReservationByClient();
+       List<Object[]> report = crudReservacion.countTotalReservationByClient();
        for(int i=0;i<report.size();i++){
            res.add(new ContadorClientes((Long)report.get(i)[1],(Client) report.get(i)[0]));
        }

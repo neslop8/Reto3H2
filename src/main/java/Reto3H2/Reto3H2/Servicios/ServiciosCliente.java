@@ -12,23 +12,23 @@ import org.springframework.stereotype.Service;
 public class ServiciosCliente {
     
    @Autowired
-   private RepositorioCliente metodosCrud;
+   private RepositorioCliente mCrCliente;
    
    public List<Client> getAll(){
-       return metodosCrud.getAll();
+       return mCrCliente.getAll();
    }
    
    public Optional <Client> getClient(int idClient){
-       return metodosCrud.getClient(idClient);
+       return mCrCliente.getClient(idClient);
    }
    
    public Client save(Client client){
     if (client.getIdClient()==null){
-        return metodosCrud.save(client);
+        return mCrCliente.save(client);
     }else{
-        Optional<Client> evt = metodosCrud.getClient(client.getIdClient());
+        Optional<Client> evt = mCrCliente.getClient(client.getIdClient());
         if (evt.isEmpty()){
-            return metodosCrud.save(client);
+            return mCrCliente.save(client);
         }else {
             return client;
         }
@@ -38,7 +38,7 @@ public class ServiciosCliente {
     public Client update(Client client) {
     
         if(client.getIdClient()!=null){
-            Optional<Client> e= metodosCrud.getClient(client.getIdClient());
+            Optional<Client> e= mCrCliente.getClient(client.getIdClient());
             if(!e.isEmpty()){
                 if(client.getName()!=null){
                     e.get().setName(client.getName());
@@ -49,7 +49,7 @@ public class ServiciosCliente {
                 if(client.getPassword()!=null){
                     e.get().setPassword(client.getPassword());
                 }
-                metodosCrud.save(e.get());
+                mCrCliente.save(e.get());
                 return e.get();
             }else{
                 return client;
@@ -63,7 +63,7 @@ public class ServiciosCliente {
     public boolean deleteClient(int idClient) {
         
         Boolean aBoolean = getClient(idClient).map(client -> {
-            metodosCrud.delete(client);
+            mCrCliente.delete(client);
             return true;
         }).orElse(false);
         return aBoolean;

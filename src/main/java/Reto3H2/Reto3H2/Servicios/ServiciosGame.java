@@ -12,23 +12,23 @@ import org.springframework.stereotype.Service;
 public class ServiciosGame {
   
     @Autowired
-   private RepositorioGames metodosCrud;
+   private RepositorioGames mCrGame;
    
    public List<Game> getAll(){
-       return metodosCrud.getAll();
+       return mCrGame.getAll();
    }
    
    public Optional <Game> getGame(int idGame){
-       return metodosCrud.getGame(idGame);
+       return mCrGame.getGame(idGame);
    }
    
    public Game save(Game game){
     if (game.getId()==null){
-        return metodosCrud.save(game);
+        return mCrGame.save(game);
     }else{
-        Optional<Game> evt = metodosCrud.getGame(game.getId());
+        Optional<Game> evt = mCrGame.getGame(game.getId());
         if (evt.isEmpty()){
-            return metodosCrud.save(game);
+            return mCrGame.save(game);
         }else {
             return game;
         }
@@ -38,7 +38,7 @@ public class ServiciosGame {
     public Game update(Game game) {
     
         if(game.getId()!=null){
-            Optional<Game> e=metodosCrud.getGame(game.getId());
+            Optional<Game> e=mCrGame.getGame(game.getId());
             if(!e.isEmpty()){
                 if(game.getName()!=null){
                     e.get().setName(game.getName());
@@ -55,7 +55,7 @@ public class ServiciosGame {
                 if(game.getCategory()!=null){
                     e.get().setCategory(game.getCategory());
                 }
-                metodosCrud.save(e.get());
+                mCrGame.save(e.get());
                 return e.get();
             }else{
                 return game;
@@ -68,7 +68,7 @@ public class ServiciosGame {
     public boolean deleteGames(int idGame) {
         
         Boolean aBoolean = getGame(idGame).map(games -> {
-            metodosCrud.delete(games);
+            mCrGame.delete(games);
             return true;
         }).orElse(false);
         return aBoolean;

@@ -12,23 +12,23 @@ import org.springframework.stereotype.Service;
 public class ServiciosMensaje {
     
    @Autowired
-   private RepositorioMensaje metodosCrud;
+   private RepositorioMensaje mCrMensaje;
    
    public List<Message> getAll(){
-       return metodosCrud.getAll();
+       return mCrMensaje.getAll();
    }
    
    public Optional <Message> getMessage(int idMessage){
-       return metodosCrud.getMessage(idMessage);
+       return mCrMensaje.getMessage(idMessage);
    }
    
    public Message save(Message message){
     if (message.getIdMessage()==null){
-        return metodosCrud.save(message);
+        return mCrMensaje.save(message);
     }else{
-        Optional<Message> evt =metodosCrud.getMessage(message.getIdMessage());
+        Optional<Message> evt =mCrMensaje.getMessage(message.getIdMessage());
         if (evt.isEmpty()){
-            return metodosCrud.save(message);
+            return mCrMensaje.save(message);
         }else {
             return message;
         }
@@ -37,12 +37,12 @@ public class ServiciosMensaje {
 
     public Message update(Message message) {
         if(message.getIdMessage()!=null){
-            Optional<Message> e= metodosCrud.getMessage(message.getIdMessage());
+            Optional<Message> e= mCrMensaje.getMessage(message.getIdMessage());
             if(!e.isEmpty()){
                 if(message.getMessageText()!=null){
                     e.get().setMessageText(message.getMessageText());
                 }
-                metodosCrud.save(e.get());
+                mCrMensaje.save(e.get());
                 return e.get();
             }else{
                 return message;
@@ -57,7 +57,7 @@ public class ServiciosMensaje {
     public boolean deleteMessage(int idMessage) {
     
         Boolean aBoolean = getMessage(idMessage).map(message -> {
-            metodosCrud.delete(message);
+            mCrMensaje.delete(message);
             return true;
         }).orElse(false);
         return aBoolean;

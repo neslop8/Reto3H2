@@ -28,43 +28,43 @@ import org.springframework.web.bind.annotation.RestController;
 public class WebReservacion {
     
    @Autowired
-    private ServiciosReservacion servicios;
+    private ServiciosReservacion serviciosReservation;
    
    @GetMapping("/all")
    public List<Reservation> getReservation(){
-        return servicios.getAll();
+        return serviciosReservation.getAll();
     }
     @GetMapping("/{id}")
 	    public Optional<Reservation> getReservation(@PathVariable("idReservation") int idReservation) {
-	        return servicios.getReservation(idReservation);
+	        return serviciosReservation.getReservation(idReservation);
 	    }
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     public Reservation save(@RequestBody Reservation reservation) {
-        return servicios.save(reservation);
+        return serviciosReservation.save(reservation);
     }
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public Reservation update(@RequestBody Reservation reservation) {
-        return servicios.update(reservation);
+        return serviciosReservation.update(reservation);
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int idReservation) {
-        return servicios.deleteReservation(idReservation);
+        return serviciosReservation.deleteReservation(idReservation);
     }
     @GetMapping("/report-status")
     public StatusReservas getReservationsStatusReport(){
-        return servicios.getReservationsStatusReport();
+        return serviciosReservation.getReservationsStatusReport();
     }
-    
+
     @GetMapping("/report-dates/{dateOne}/{dateTwo}")
-    public List<Reservation> getReservationsReportDates(@PathVariable("dateOne") String dateOne, @PathVariable("dateTwo") String dateTwo){
-    return servicios.getReservationPeriod(dateOne, dateTwo);
-    }
+    public List<Reservation> getReservationsReportDates(@PathVariable("dateOne") String dateOne, @PathVariable("dateTwo") String dateTwo ){
+         return serviciosReservation.getReservationPeriod(dateOne, dateTwo);
+     }
     
     @GetMapping("/report-clients")
     public List<ContadorClientes> getReservationsReportsClient(){
-        return servicios.getTopClients();
+        return serviciosReservation.getTopClients();
     }
 }

@@ -12,20 +12,20 @@ import org.springframework.stereotype.Repository;
 public class RepositorioCliente {
     
     @Autowired
-    private InterfaceCliente crud;
+    private InterfaceCliente crudCliente;
     
     public List<Client> getAll(){
-        return (List<Client>) crud.findAll();
+        return (List<Client>) crudCliente.findAll();
     }
     public Optional <Client> getClient(int idClient){
-        return crud.findById(idClient);
+        return crudCliente.findById(idClient);
     }        
     
     public Client save(Client client){
-        return  crud.save(client);
+        return  crudCliente.save(client);
     }
     
     public void delete(Client client){
-        crud.delete(client);
+        crudCliente.delete(client);
     }
 }

@@ -12,20 +12,20 @@ import org.springframework.stereotype.Repository;
 public class RepositorioGames {
     
     @Autowired
-    private InterfaceGames crud;
+    private InterfaceGames crudGames;
     
     public List <Game> getAll(){
-        return (List<Game>) crud.findAll();
+        return (List<Game>) crudGames.findAll();
     }
     public Optional <Game> getGame(int id){
-        return crud.findById(id);
+        return crudGames.findById(id);
     }        
     
     public Game save(Game game){
-        return  crud.save(game);
+        return  crudGames.save(game);
     }
      
     public void delete(Game game){
-        crud.delete(game);
+        crudGames.delete(game);
     }
 }

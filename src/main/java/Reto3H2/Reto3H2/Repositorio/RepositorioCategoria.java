@@ -12,20 +12,20 @@ import org.springframework.stereotype.Repository;
 public class RepositorioCategoria {
     
     @Autowired
-    private InterfaceCategoria crud;
+    private InterfaceCategoria crudCategoria;
     
     public List <Category> getAll(){
-        return (List<Category>) crud.findAll();
+        return (List<Category>) crudCategoria.findAll();
     }
     public Optional <Category> getCategory(int id){
-        return crud.findById(id);
+        return crudCategoria.findById(id);
     }        
     
     public Category save(Category category){
-        return  crud.save(category);
+        return crudCategoria.save(category);
     }
     
     public void delete(Category Category){
-       crud.delete(Category);
+       crudCategoria.delete(Category);
     }
 }
