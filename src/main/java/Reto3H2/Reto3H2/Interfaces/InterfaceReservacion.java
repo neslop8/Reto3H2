@@ -16,6 +16,6 @@ public interface InterfaceReservacion extends CrudRepository<Reservation, Intege
 
     //select clientid, count(*) as "total" from reservacion group by clientid order by total desc; 
     @Query("SELECT c.client, COUNT(c.client) FROM Reservation AS c group by c.client order by COUNT(c.client)DESC")
-    public List<Object[]> countTotalReservationByClient();
+    public List<Object[]> countTotalReservationByCliente();
 
 }

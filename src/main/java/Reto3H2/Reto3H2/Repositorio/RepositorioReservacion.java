@@ -42,7 +42,7 @@ public class RepositorioReservacion {
    
    public List<ContadorClientes> getTopClients(){
        List<ContadorClientes> res= new ArrayList<>();
-       List<Object[]> report = crudReservacion.countTotalReservationByClient();
+       List<Object[]> report = crudReservacion.countTotalReservationByCliente();
        for(int i=0;i<report.size();i++){
            res.add(new ContadorClientes((Long)report.get(i)[1],(Client) report.get(i)[0]));
        }
