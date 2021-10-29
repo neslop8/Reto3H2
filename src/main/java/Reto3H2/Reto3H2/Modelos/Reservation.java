@@ -1,22 +1,18 @@
 package Reto3H2.Reto3H2.Modelos;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table (name ="reservations")
-@JsonPropertyOrder ({"idReservation", "startDate", "devolutionDate", "status", "game", "client","score"})
 public class Reservation implements Serializable{
  
     @Id
