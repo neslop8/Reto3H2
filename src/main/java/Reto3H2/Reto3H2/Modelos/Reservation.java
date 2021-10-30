@@ -11,6 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author NFLopez
+ */
 @Entity
 @Table (name ="reservations")
 public class Reservation implements Serializable{
@@ -23,9 +27,8 @@ public class Reservation implements Serializable{
     private Date devolutionDate;
     private String status = "created";
     
-
     @ManyToOne
-    @JoinColumn(name= "idGame")
+    @JoinColumn(name= "id")
     @JsonIgnoreProperties({"reservations"})
     private Game game;
     
@@ -33,7 +36,8 @@ public class Reservation implements Serializable{
     @JoinColumn(name= "idClient")
     @JsonIgnoreProperties({"reservations", "messages"})
     private Client client;
-    private String score;
+    
+    private String score; //depende el grupo
 
     public Integer getIdReservation() {
         return idReservation;
